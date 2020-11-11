@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- 名空间->当前对应得Dao的全限定类名-->
+<mapper namespace="com.qf.dao.UserDao">
+    <!-- id的属性跟dao中的方法名 对应
+        resultType 代表你返回的类型
+    -->
+    <select id="findAll" resultType="user">
+        select * from user;
+    </select>
+    <!--
+    resultType 返回的类型
+    parameterType 传入的参数类型
+    -->
+    <select id="selectById" resultType="user">
+        select * from user where id = #{uid}
+    </select>
+    <!--
+    1.@Param注解传参，（）中的内容一定要跟sql语句中#{}的内容一致
+    2.可以使用下表获取 #{arg0}，#{param1} 代表第一个参数#{arg1},#{param2}代表第二个
+    arg下标从0开始，param下标从1开始
+    3.通过对象来进行传参。select标签加入一个属性paramterType 传入对象的全限定类名 #{}中的内容就是属性名
+    4.通过map来进行传参。#{}中的内容就是map中的key值
+    -->
+    <select id="selectByIdAndUserName" resultType="user" >
+        select * from user where id =#{id} and name = #{name}
+    </select>
+
+    <select id="selectByUserName" resultType="user">
+        select * from user where name LIKE concat('%',#{name},'%')
+    </select>
+
+    <delete id="deleteById">
+        delete from user where id = #{id}
+    </delete>
+
+    <update id="updateById" parameterType="user">
+        update user set name = #{name} ,sex = #{sex} where id=#{id}
+    </update>
+
+    <insert id="insertUser" parameterType="user">
+        insert into user (id,name,sex) values (null ,#{name},#{sex})
+    </insert>
+
+    <insert id="insertUserGetId" parameterType="user" useGeneratedKeys="true" keyProperty="id">
+        insert into user (name,sex) values (#{name},#{sex})
+    </insert>
+</mapper>

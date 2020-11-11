@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.qf.dao.UserrDao">
+
+    <resultMap id="BaseResult" type="userr">
+        <!-- 声明主键对应-->
+        <id column="u_id" property="id"></id>
+        <!-- 声明其他字段-->
+        <result column="u_name" property="name"></result>
+        <result column="u_sex" property="sex"></result>
+    </resultMap>
+
+    <select id="findAll" resultMap="BaseResult">
+        select * from userr
+    </select>
+</mapper>
